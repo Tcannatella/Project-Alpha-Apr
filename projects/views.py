@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from projects.models import Project
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 
 @login_required
 def list_projects(request):
@@ -10,3 +11,4 @@ def list_projects(request):
     }
 
     return render(request,"projects/list.html", context)
+
