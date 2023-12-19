@@ -22,6 +22,7 @@ def redirect_to_list(request):
     return redirect("list_projects")
 
 urlpatterns = [
+    path("accounts/", include("accounts.urls")),
     path("", redirect_to_list, name="home"),
     path("projects/", include("projects.urls")),
     path("admin/", admin.site.urls),
