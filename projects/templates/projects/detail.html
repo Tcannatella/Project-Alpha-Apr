@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <div>
+            <h1> {{show_project.name}} </h1>
+            <p> {{show_project.description}} </p>
+            <h2> Tasks </h2>
+            {% if user.is_authenticated %}
+                <table>
+                    <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Assignee</th>
+                          <th>Start date</th>
+                          <th>Due date</th>
+                          <th>Is completed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in show_task %}
+                            <tr>
+                              <td>{{i.name}}</td>
+                              <td>{{i.assignee}}</td>
+                              <td>{{i.start_date|date:"m/d/y h:i A"}}</td>
+                              <td>{{i.due_date|date:"m/d/y h:i A"}}</td>
+                              <td>{{i.is_completed|yesno}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+            {% if not list_projects%}
+                <p>This project has no tasks</p>
+            {% endif %}
+        </div>
+    </main>
+
+</body>
+</html>
