@@ -18,8 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
 
+
 def redirect_to_list(request):
     return redirect("list_projects")
+
 
 urlpatterns = [
     path("tasks/", include("tasks.urls")),

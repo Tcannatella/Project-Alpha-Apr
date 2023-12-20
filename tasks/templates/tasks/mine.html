@@ -2,71 +2,65 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Tasks</title>
-</head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                {% if user.is_authenticated %}
-                Hello, {{ user.username }}
-                <li><a href="{% url 'show_my_tasks' %}">My tasks</a></li>
-                <li><a href="{% url 'list_projects' %}">My projects</a></li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
-            {% else %}
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'signup' %}">Signup</a></li>
-            {% endif %}
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <div>
-            <h1> My Tasks </h1>
-            {% if show_my_tasks %}
-                <table>
-                    <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Start date</th>
-                          <th>Due date</th>
-                          <th>Is completed</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for i in show_my_tasks %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Tasks</title>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    {% if user.is_authenticated %}
+                        Hello, {{ user.username }}
+                        <li>
+                            <a href="{% url 'show_my_tasks' %}">My tasks</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'list_projects' %}">My projects</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'signup' %}">Signup</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div>
+                <h1>My Tasks</h1>
+                {% if show_my_tasks %}
+                    <table>
+                        <thead>
                             <tr>
-                              <td>{{i.name}}</td>
-                              <td>{{i.start_date}}</td>
-                              <td>{{i.due_date}}</td>
-                              <td>{{i.is_completed|yesno}}</td>
+                                <th>Name</th>
+                                <th>Start date</th>
+                                <th>Due date</th>
+                                <th>Is completed</th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else%}
-                <p> You have no tasks</p>
-            {% endif %}
-        </div>
-    </main>
-
-</body>
+                        </thead>
+                        <tbody>
+                            {% for i in show_my_tasks %}
+                                <tr>
+                                    <td>{{ i.name }}</td>
+                                    <td>{{ i.start_date }}</td>
+                                    <td>{{ i.due_date }}</td>
+                                    <td>{{ i.is_completed|yesno }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>You have no tasks</p>
+                {% endif %}
+            </div>
+        </main>
+    </body>
 </html>
-
-
-
-
-
-
-{% comment %} {% for i in project.tasks.all %}
-<tr>
-  <td>{{i.name}}</td>
-  <td>{{i.assignee}}</td>
-  <td>{{i.start_date|date:"m/d/y h:i A"}}</td>
-  <td>{{i.due_date|date:"m/d/y h:i A"}}</td>
-  <td>{{i.is_completed|yesno}}</td>
-</tr>
-{% endfor %} {% endcomment %}
