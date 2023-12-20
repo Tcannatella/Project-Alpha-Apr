@@ -16,10 +16,8 @@ def list_projects(request):
 @login_required
 def show_project(request, id):
     project = get_object_or_404(Project, id=id, owner=request.user)
-    tasks = Task.objects.filter(project=project)
     context = {
-        "show_task" : tasks,
-        "show_project": project
-
+        "project": project,
     }
+    
     return render(request, "projects/detail.html", context)
