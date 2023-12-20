@@ -3,6 +3,7 @@ from projects.models import Project
 from tasks.models import Task
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from projects.forms import ProjectForm
 
 @login_required
 def list_projects(request):
@@ -19,5 +20,22 @@ def show_project(request, id):
     context = {
         "project": project,
     }
-    
+
     return render(request, "projects/detail.html", context)
+
+@login_required
+def create_project(request):
+    if request.method == "POST":
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            recipe = form.save(False)
+            recipe.author = request.user
+            recipe.save()
+            return redirect("list_projects")
+    else:
+        form = ProjectForm()
+
+    context = {
+        "form": form,
+    }
+    return render(request, "projects/create.html", context)
