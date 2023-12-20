@@ -16,16 +16,4 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
-def create_project(request):
-    if request.method == "POST":
-        form = TodoItemForm(request.POST)
-        if form.is_valid():
-            item = form.save()
-            return redirect("todo_list_detail", id=item.id)
-    else:
-        form = TodoItemForm()
 
-    context = {
-        "form": form,
-    }
-    return render(request,"todos/itemscreate.html", context)

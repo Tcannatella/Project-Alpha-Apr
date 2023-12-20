@@ -5,31 +5,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>My Tasks</title>
 </head>
 <body>
     <main>
         <div>
-            <h1> {{project.name}} </h1>
-            <p> {{project.description}} </p>
-            <h2> Tasks </h2>
-            <p><a href="{% url 'create_task'%}">Create a new task</a><p/>
-            {% if project.tasks.exists %}
+            <h1> My Tasks </h1>
+            {% if show_my_tasks %}
                 <table>
                     <thead>
                         <tr>
                           <th>Name</th>
-                          <th>Assignee</th>
                           <th>Start date</th>
                           <th>Due date</th>
                           <th>Is completed</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for i in project.tasks.all %}
+                        {% for i in show_my_tasks %}
                             <tr>
                               <td>{{i.name}}</td>
-                              <td>{{i.assignee.username}}</td>
                               <td>{{i.start_date}}</td>
                               <td>{{i.due_date}}</td>
                               <td>{{i.is_completed|yesno}}</td>
@@ -38,7 +33,7 @@
                     </tbody>
                 </table>
             {% else%}
-                <p>This project has no tasks</p>
+                <p> You have no tasks</p>
             {% endif %}
         </div>
     </main>
@@ -51,3 +46,12 @@
 
 
 
+{% comment %} {% for i in project.tasks.all %}
+<tr>
+  <td>{{i.name}}</td>
+  <td>{{i.assignee}}</td>
+  <td>{{i.start_date|date:"m/d/y h:i A"}}</td>
+  <td>{{i.due_date|date:"m/d/y h:i A"}}</td>
+  <td>{{i.is_completed|yesno}}</td>
+</tr>
+{% endfor %} {% endcomment %}
