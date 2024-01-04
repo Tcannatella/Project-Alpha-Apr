@@ -1,4 +1,5 @@
 {% load static %}
+<link rel="stylesheet" href="{% static 'css/app.css' %}">
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +13,7 @@
             <nav>
                 <ul>
                     {% if user.is_authenticated %}
-                        Hello, {{ user.username }}
+                        <span class="welcome">Welcome, {{ user.username }}</span>
                         <li>
                             <a href="{% url 'show_my_tasks' %}">My tasks</a>
                         </li>
@@ -34,7 +35,7 @@
             </nav>
         </header>
         <main>
-            <div>
+            <div class="task-form">
                 <h1>Create a new task</h1>
                 <form method="post">
                     {% csrf_token %}
